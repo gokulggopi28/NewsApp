@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:news_app/constants/app_strings.dart';
 import 'package:news_app/news_controller.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,14 +8,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _newsController.fetchNews("technology");
+    _newsController.fetchNews(AppStrings.techTitle);
 
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
           padding: EdgeInsets.all(15.0),
           child: Text(
-            "Nova News",
+            AppStrings.appTitle,
             style: TextStyle(
               fontSize: 35,
               fontWeight: FontWeight.bold,
@@ -33,11 +34,11 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Hottest News",
+                  AppStrings.hotNewsTitle,
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 Text(
-                  "See All",
+                  AppStrings.seeAllTitle,
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -63,7 +64,7 @@ class HomePage extends StatelessWidget {
                 if (_newsController.newsList.isEmpty) {
                   return const Center(
                     child: Text(
-                      "No news available.",
+                      AppStrings.noNews,
                       style: TextStyle(color: Colors.white),
                     ),
                   );
@@ -103,7 +104,7 @@ class HomePage extends StatelessWidget {
                                     fit: BoxFit.cover,
                                     errorBuilder: (context, error, stackTrace) {
                                       return const Center(
-                                        child: Text("Image not available"),
+                                        child: Text(AppStrings.imageNotAvail),
                                       );
                                     },
                                   ),
@@ -116,7 +117,7 @@ class HomePage extends StatelessWidget {
                                 vertical: 5.0,
                               ),
                               child: Text(
-                                article.title ?? "No Title",
+                                article.title ?? AppStrings.noTitle,
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -132,10 +133,10 @@ class HomePage extends StatelessWidget {
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(article.author ?? "Unknown Author"),
+                                  Text(article.author ?? AppStrings.unknownAuthor),
                                   Text(
                                     article.publishedAt?.substring(0, 10) ??
-                                        "Unknown Date",
+                                        AppStrings.unknownDate,
                                   ),
                                 ],
                               ),

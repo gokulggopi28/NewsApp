@@ -4,7 +4,7 @@ import 'package:news_app/models/news_model.dart';
 import '../constants/app_strings.dart';
 
 class NewsDetailPage extends StatelessWidget {
-  final Articles article;
+  final Article article;
 
   NewsDetailPage({required this.article});
 

@@ -72,81 +72,87 @@ class HomePage extends StatelessWidget {
                   );
                 }
 
-                return ListView.builder(
-                  itemCount: _newsController.newsList.length,
-                  itemBuilder: (context, index) {
-                    final article = _newsController.newsList[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Get.to(() => NewsDetailPage(article: article));
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                          color: const Color(0xffD4EEF0),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(14.0),
-                              child: Container(
-                                height: 140,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    article.urlToImage ??
-                                        "https://via.placeholder.com/150",
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return const Center(
-                                        child: Text(AppStrings.imageNotAvail),
-                                      );
-                                    },
+                return RefreshIndicator(
+                  onRefresh: ()async{
+                    await _newsController.fetchNews(AppStrings.appTitle);
+
+                },
+                  child: ListView.builder(
+                    itemCount: _newsController.newsList.length,
+                    itemBuilder: (context, index) {
+                      final article = _newsController.newsList[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Get.to(() => NewsDetailPage(article: article));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffD4EEF0),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(14.0),
+                                child: Container(
+                                  height: 140,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(
+                                      article.urlToImage ??
+                                          "https://via.placeholder.com/150",
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return const Center(
+                                          child: Text(AppStrings.imageNotAvail),
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 5.0,
-                              ),
-                              child: Text(
-                                article.title ?? AppStrings.noTitle,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 5.0,
+                                ),
+                                child: Text(
+                                  article.title ?? AppStrings.noTitle,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 5.0,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                  vertical: 5.0,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(article.author ?? AppStrings.unknownAuthor),
+                                    Text(
+                                      article.publishedAt?.substring(0, 10) ??
+                                          AppStrings.unknownDate,
+                                    ),
+                                  ],
+                                ),
                               ),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(article.author ?? AppStrings.unknownAuthor),
-                                  Text(
-                                    article.publishedAt?.substring(0, 10) ??
-                                        AppStrings.unknownDate,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 );
               }),
             ),

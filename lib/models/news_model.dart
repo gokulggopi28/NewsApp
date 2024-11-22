@@ -1,33 +1,40 @@
 class NewsModel {
-  String? status;
-  int? totalResults;
-  List<Articles>? articles;
+  final String status;
+  final int totalResults;
+  final List<Article> articles;
 
-  NewsModel({this.status, this.totalResults, this.articles});
+  NewsModel({
+    required this.status,
+    required this.totalResults,
+    required this.articles,
+  });
 
-  NewsModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    totalResults = json['totalResults'];
-    if (json['articles'] != null) {
-      articles = <Articles>[];
-      json['articles'].forEach((v) {
-        articles!.add(new Articles.fromJson(v));
-      });
-    }
+  // Convert the NewsModel to a Map (used for JSON encoding)
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['totalResults'] = totalResults;
+    data['articles'] = articles.map((article) => article.toJson()).toList();
+    return data;
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['totalResults'] = this.totalResults;
-    if (this.articles != null) {
-      data['articles'] = this.articles!.map((v) => v.toJson()).toList();
-    }
-    return data;
+  factory NewsModel.fromJson(Map<String, dynamic> json) {
+    var list = json['articles'] as List?;
+    List<Article> articlesList = list != null
+        ? list.map((i) => Article.fromJson(i)).toList()
+        : [];
+
+    return NewsModel(
+      status: json['status'],
+      totalResults: json['totalResults'],
+      articles: articlesList,
+    );
   }
 }
 
-class Articles {
+
+
+class Article {
   Source? source;
   String? author;
   String? title;
@@ -37,7 +44,7 @@ class Articles {
   String? publishedAt;
   String? content;
 
-  Articles(
+  Article(
       {this.source,
         this.author,
         this.title,
@@ -47,7 +54,7 @@ class Articles {
         this.publishedAt,
         this.content});
 
-  Articles.fromJson(Map<String, dynamic> json) {
+  Article.fromJson(Map<String, dynamic> json) {
     source =
     json['source'] != null ? new Source.fromJson(json['source']) : null;
     author = json['author'];

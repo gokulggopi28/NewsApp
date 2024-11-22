@@ -6,7 +6,7 @@ class NewsService{
   final String _baseUrl = "https://newsapi.org/v2/";
 
   Future<NewsModel>fetchNews(String category) async{
-    final url = Uri.parse("$_baseUrl/everything?q=tesla&from=2024-10-21&sortBy=publishedAt&apiKey=$_apiKey");
+    final url = Uri.parse("$_baseUrl/everything?q=$category&from=2024-10-21&sortBy=publishedAt&apiKey=$_apiKey");
     final response = await http.get(url);
 
     if(response.statusCode == 200){

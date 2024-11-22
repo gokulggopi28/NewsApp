@@ -8,4 +8,6 @@ class AppStrings{
   static const String noTitle = 'No Title';
   static const String unknownAuthor = 'Unknown Author';
   static const String unknownDate = 'Unknown Date';
+  static const String newsDetails = 'News Detail';
+  static const String readFullArticle = 'Read Full Article';
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/models/news_model.dart';
 
+import '../constants/app_strings.dart';
+
 class NewsDetailPage extends StatelessWidget {
   final Articles article;
 
@@ -11,7 +13,7 @@ class NewsDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          article.title ?? "News Detail",
+          article.title ?? AppStrings.newsDetails,
           style: const TextStyle(fontSize: 18),
         ),
         backgroundColor: Colors.black,
@@ -39,12 +41,12 @@ class NewsDetailPage extends StatelessWidget {
                 height: 200,
                 width: double.infinity,
                 color: Colors.grey,
-                child: const Center(child: Text("No Image Available")),
+                child: const Center(child: Text(AppStrings.imageNotAvail)),
               ),
             const SizedBox(height: 16),
             // Article title
             Text(
-              article.title ?? "No Title",
+              article.title ?? AppStrings.noTitle,
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -56,14 +58,14 @@ class NewsDetailPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  article.author ?? "Unknown Author",
+                  article.author ?? AppStrings.unknownAuthor,
                   style: const TextStyle(
                     fontSize: 16,
                     fontStyle: FontStyle.italic,
                   ),
                 ),
                 Text(
-                  article.publishedAt?.substring(0, 10) ?? "Unknown Date",
+                  article.publishedAt?.substring(0, 10) ?? AppStrings.unknownDate,
                   style: const TextStyle(fontSize: 16),
                 ),
               ],
@@ -71,7 +73,7 @@ class NewsDetailPage extends StatelessWidget {
             const SizedBox(height: 16),
             // Article content
             Text(
-              article.content ?? "No Content Available",
+              article.content ?? AppStrings.noNews,
               style: const TextStyle(fontSize: 16),
             ),
             const Spacer(),
@@ -82,7 +84,7 @@ class NewsDetailPage extends StatelessWidget {
                   onPressed: () {
 
                   },
-                  child: const Text("Read Full Article"),
+                  child: const Text(AppStrings.readFullArticle),
                 ),
               ),
           ],

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:news_app/constants/app_strings.dart';
 import 'package:news_app/news_controller.dart';
 
+import 'news_details_page.dart';
+
 class HomePage extends StatelessWidget {
   final NewsController _newsController = Get.put(NewsController());
 
@@ -76,8 +78,7 @@ class HomePage extends StatelessWidget {
                     final article = _newsController.newsList[index];
                     return GestureDetector(
                       onTap: () {
-                        // Navigate to a detail page
-                        // Get.to(() => NewsDetailPage(article: article));
+                        Get.to(() => NewsDetailPage(article: article));
                       },
                       child: Container(
                         margin: const EdgeInsets.only(bottom: 20),

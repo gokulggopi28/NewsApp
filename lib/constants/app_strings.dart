@@ -10,4 +10,5 @@ class AppStrings{
   static const String unknownDate = 'Unknown Date';
   static const String newsDetails = 'News Detail';
   static const String readFullArticle = 'Read Full Article';
+  static const String allNews = 'All News';
 }
